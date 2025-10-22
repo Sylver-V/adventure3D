@@ -34,10 +34,15 @@ namespace Ebac.StateMachine
 
         public void SwitchState(T state)
         {
-            if (_currentState != null) _currentState.OnStateExit();
+            if (_currentState != null)
+                _currentState.OnStateExit();
 
             _currentState = dictionaryState[state];
+
+            if (_currentState != null)
+                _currentState.OnStateEnter();
         }
+
 
         public void Update()
         {
