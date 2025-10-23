@@ -7,7 +7,7 @@ public class ExercicioStateIdle : ExercicioStateBase
 
     public override void OnStateEnter(object o = null)
     {
-        Debug.Log("Entrou no estado IDLE");
+        //Debug.Log("Entrou no estado IDLE");
     }
 
     public override void OnStateStay()
@@ -17,7 +17,7 @@ public class ExercicioStateIdle : ExercicioStateBase
 
     public override void OnStateExit()
     {
-        Debug.Log("Saiu do estado IDLE");
+        //Debug.Log("Saiu do estado IDLE");
 
     }
 }

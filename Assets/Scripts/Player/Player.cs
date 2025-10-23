@@ -10,7 +10,17 @@ public class Player : MonoBehaviour
     public float turnSpeed = 1f;
     public float gravity = -9.8f;
 
+
     private float vSpeed = 0f;
+
+    [Header("Jump Setup")]
+    public KeyCode jumpKeyCode = KeyCode.Space;
+    public float jumpSpeed = 15f;
+
+    [Header("Run Setup")]
+    public KeyCode keyRun = KeyCode.LeftShift;
+    public float speedRun = 1.5f;
+
 
     private void Update()
     {
@@ -20,11 +30,37 @@ public class Player : MonoBehaviour
         var inputAxisVertical = Input.GetAxis("Vertical");
         var speedVector = transform.forward * inputAxisVertical * speed;
 
-        vSpeed = gravity * Time.deltaTime;
+        if (characterController.isGrounded)
+        {
+            vSpeed = 0;
+            if (Input.GetKeyDown(jumpKeyCode))
+            {
+                vSpeed = jumpSpeed;
+                animator.SetTrigger("Jump");
+            }
+        }
+
+
+        vSpeed -= gravity * Time.deltaTime;
         speedVector.y = vSpeed;
 
-        characterController.Move(speedVector * Time.deltaTime);
+        var isWalking = inputAxisVertical != 0;
+        if (isWalking)
+        {
+            if (Input.GetKey(keyRun))
+            {
+                speedVector *= speedRun;
+                animator.speed = speedRun;
+            }
+            else
+            {
+                animator.speed = 1;
+            }
+        }
 
-        animator.SetBool("Run", inputAxisVertical != 0);     
+            characterController.Move(speedVector * Time.deltaTime);
+
+        animator.SetBool("Run", inputAxisVertical != 0);
+
     }
 }
