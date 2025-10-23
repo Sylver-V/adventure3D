@@ -1,9 +1,9 @@
 using UnityEngine;
 using Ebac.StateMachine;
 
-public class PlayerStateIdle : PlayerStateBase
+public class ExercicioStateIdle : ExercicioStateBase
 {
-    public PlayerStateIdle(PlayerStateMachine Player) : base(Player) { }
+    public ExercicioStateIdle(ExercicioStateMachine exercicio) : base(exercicio) { }
 
     public override void OnStateEnter(object o = null)
     {
@@ -18,5 +18,6 @@ public class PlayerStateIdle : PlayerStateBase
     public override void OnStateExit()
     {
         Debug.Log("Saiu do estado IDLE");
+
     }
 }

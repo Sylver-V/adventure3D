@@ -1,15 +1,15 @@
 using UnityEngine;
 using Ebac.StateMachine;
 
-public class PlayerStateJump : PlayerStateBase
+public class ExercicioStateJump : ExercicioStateBase
 {
     private float _jumpForce = 5f;
     private bool _hasJumped = false;
     private Rigidbody _rb;
 
-    public PlayerStateJump(PlayerStateMachine Player) : base(Player)
+    public ExercicioStateJump(ExercicioStateMachine exercicio) : base(exercicio)
     {
-        _rb = Player.GetComponent<Rigidbody>();
+        _rb = exercicio.GetComponent<Rigidbody>();
     }
 
     public override void OnStateEnter(object o = null)

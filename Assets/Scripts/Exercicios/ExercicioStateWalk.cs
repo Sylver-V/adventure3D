@@ -1,8 +1,9 @@
 using UnityEngine;
+using Ebac.StateMachine;
 
-public class PlayerStateWalk : PlayerStateBase
+public class ExercicioStateWalk : ExercicioStateBase
 {
-    public PlayerStateWalk(PlayerStateMachine Player) : base(Player) { }
+    public ExercicioStateWalk(ExercicioStateMachine exercicio) : base(exercicio) { }
     public float speedWalk = 2f;
 
     public override void OnStateEnter(object o = null)
@@ -12,7 +13,7 @@ public class PlayerStateWalk : PlayerStateBase
 
     public override void OnStateStay()
     {
-        _player.transform.Translate(Vector3.forward * Time.deltaTime * speedWalk);
+        _exercicio.transform.Translate(Vector3.forward * Time.deltaTime * speedWalk);
     }
 
     public override void OnStateExit()
