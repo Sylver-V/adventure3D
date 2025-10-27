@@ -64,8 +64,9 @@ namespace Enemy
         public void OnDamage(float f)
         {
             if (flashColor != null) flashColor.Flash();
-            if (particleSystemEnemy != null) particleSystemEnemy.Emit(15); 
+            if (particleSystemEnemy != null) particleSystemEnemy.Emit(15);
 
+            transform.position -= transform.forward;
 
             _currentLife -= f;
 
@@ -106,6 +107,12 @@ namespace Enemy
         {
             Debug.Log("Damage");
             OnDamage(damage);
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            OnDamage(damage);
+            transform.DOMove(transform.position - dir, .1f);
         }
     }
 }
