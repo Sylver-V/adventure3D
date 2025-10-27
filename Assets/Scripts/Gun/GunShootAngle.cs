@@ -12,12 +12,7 @@ public class GunShootAngle : GunShootLimit
         int mult = 0;
 
         for (int i = 0; i < amountPerShoot; i++) 
-        { 
-            if(i%2 == 0)
-            {
-                mult++;
-            }
-
+        {
             var projectile = Instantiate(prefabProjectile, positionToShoot);
 
             projectile.transform.localPosition = Vector3.zero;
@@ -25,6 +20,21 @@ public class GunShootAngle : GunShootLimit
 
             projectile.speed = speed;
             projectile.transform.parent = null;
+
+
+            foreach (var other in GameObject.FindObjectsOfType<ProjectileBase>())
+            {
+                if (other != projectile)
+                {
+                    Physics.IgnoreCollision(projectile.GetComponent<Collider>(), other.GetComponent<Collider>());
+                }
+            }
+
+            if (i%2 == 0)
+            {
+                mult++;
+            }
+
         }
     }
 
