@@ -5,7 +5,7 @@ public class ExercicioStateIdle : ExercicioStateBase
 {
     public ExercicioStateIdle(ExercicioStateMachine exercicio) : base(exercicio) { }
 
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
         //Debug.Log("Entrou no estado IDLE");
     }

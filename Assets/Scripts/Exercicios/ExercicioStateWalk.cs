@@ -6,7 +6,7 @@ public class ExercicioStateWalk : ExercicioStateBase
     public ExercicioStateWalk(ExercicioStateMachine exercicio) : base(exercicio) { }
     public float speedWalk = 2f;
 
-    public override void OnStateEnter(object o = null)
+    public override void OnStateEnter(params object[] objs)
     {
         Debug.Log("Entrou no estado WALK");
     }
