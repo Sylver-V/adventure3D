@@ -11,6 +11,8 @@ public class ProjectileBase : MonoBehaviour
     public int damageAmount = 1;
     public float speed = 50f;
 
+    public List<string> tagsToHit;
+
 
     private bool hasHit = false;
 
@@ -26,18 +28,26 @@ public class ProjectileBase : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasHit) return;
-        hasHit = true;
-
-        var damageble = collision.transform.GetComponent<IDamageble>();
-
-        if (damageble != null)
+        foreach(var t in tagsToHit)
         {
-            Vector3 dir = collision.transform.position - transform.position;
-            dir = -dir.normalized;
-            dir.y = 0;
+            if(collision.transform.tag == t)
+            {
+                if (hasHit) return;
+                hasHit = true;
 
-            damageble.Damage(damageAmount, dir);
+                var damageble = collision.transform.GetComponent<IDamageble>();
+
+                if (damageble != null)
+                {
+                    Vector3 dir = collision.transform.position - transform.position;
+                    dir = -dir.normalized;
+                    dir.y = 0;
+
+                    damageble.Damage(damageAmount, dir);
+            }
+            break;
+        }
+
         }
         Destroy(gameObject);
     }

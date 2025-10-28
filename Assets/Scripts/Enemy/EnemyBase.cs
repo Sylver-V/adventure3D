@@ -16,6 +16,7 @@ namespace Enemy
         public ParticleSystem particleSystemEnemy;
 
         public float startLife = 10f;
+        public bool lookAtPlayer = false;
 
         [Header("Animation")]
         [SerializeField] private AnimationBase _animationBase;
@@ -25,11 +26,17 @@ namespace Enemy
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
 
+        private Player _player;
+
         private void Awake()
         {
             Init();
         }
 
+        private void Start()
+        {
+            _player = GameObject.FindObjectOfType<Player>();
+        }
 
         protected void ResetLife()
         {
@@ -95,11 +102,16 @@ namespace Enemy
 
         //debug
 
-        private void Update()
+        public virtual void Update()
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
                 OnDamage(5f);
+            }
+            
+            if (lookAtPlayer)
+            {
+                transform.LookAt(_player.transform.position);
             }
         }
 
@@ -113,6 +125,16 @@ namespace Enemy
         {
             OnDamage(damage);
             transform.DOMove(transform.position - dir, .1f);
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Player p = collision.transform.GetComponent<Player>();
+
+            if(p != null)
+            {
+                p.Damage(1);
+            }
         }
     }
 }

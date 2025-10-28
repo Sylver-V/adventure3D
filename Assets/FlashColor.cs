@@ -6,6 +6,7 @@ using DG.Tweening;
 public class FlashColor : MonoBehaviour
 {
     public MeshRenderer meshRenderer;
+    public SkinnedMeshRenderer skinnedMeshRenderer;
 
     [Header("Setup")]
     public Color color = Color.red;
@@ -15,20 +16,35 @@ public class FlashColor : MonoBehaviour
 
     private Tween _currTween;
 
-    private void Start()
+
+    private void OnValidate()
     {
-        defaultColort = meshRenderer.material.GetColor("_EmissionColor");
+        if(meshRenderer == null) meshRenderer = GetComponent<MeshRenderer>();
+        if(skinnedMeshRenderer == null) skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
+
     }
+
+    //private void Start()
+    //{
+    //    defaultColort = meshRenderer.material.GetColor("_EmissionColor");
+    //}
 
     [NaughtyAttributes.Button]
     public void Flash()
     {
-        if (!Application.isPlaying) return;
+        //if (!Application.isPlaying) return;
 
-        if (_currTween != null && _currTween.IsActive())
-            _currTween.Kill();
+        //if (_currTween != null && _currTween.IsActive())
+        //    _currTween.Kill();
 
-        _currTween = meshRenderer.material.DOColor(color, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
+        //_currTween = meshRenderer.material.DOColor(color, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
+
+        if (meshRenderer != null && !_currTween.IsActive())
+            _currTween = meshRenderer.material.DOColor(color, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
+
+        if (skinnedMeshRenderer != null && !_currTween.IsActive())
+            _currTween = skinnedMeshRenderer.material.DOColor(color, "_EmissionColor", duration).SetLoops(2, LoopType.Yoyo);
+
     }
 
 }
