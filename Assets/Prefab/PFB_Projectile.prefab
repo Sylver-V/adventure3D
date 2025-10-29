@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
   timeToDestroy: 2
-  damageAmount: 1
+  damageAmount: 3
   speed: 50
   tagsToHit:
   - Enemy

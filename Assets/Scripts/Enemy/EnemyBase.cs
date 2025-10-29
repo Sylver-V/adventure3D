@@ -38,6 +38,7 @@ namespace Enemy
             _player = GameObject.FindObjectOfType<Player>();
         }
 
+
         protected void ResetLife()
         {
             _currentLife = startLife;
@@ -89,6 +90,7 @@ namespace Enemy
 
         private void BornAnimation()
         {
+            transform.localScale = Vector3.one;
             transform.DOScale(0, startAnimationDuration).SetEase(startAnimationEase).From();
         }
 
