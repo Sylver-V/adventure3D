@@ -34,6 +34,19 @@ namespace Boss
 
         public HealthBase healthBase;
 
+
+
+        private void OnValidate()
+        {
+            if (healthBase == null) healthBase = GetComponent<HealthBase>();
+        }
+
+        private void Awake()
+        {
+            OnValidate();
+        }
+
+
         private void Start()
         {
             Init();

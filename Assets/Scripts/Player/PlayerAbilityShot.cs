@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerAbilityShot : PlayerAbilityBase
 {
 
-    public List<UIGunUpdater> uIGunUpdaters;
+    public List<UIFillUpdater> uIFillUpdaters;
     public List<GunBase> availableGuns;
 
     public GunBase gunBase;
@@ -66,7 +66,7 @@ public class PlayerAbilityShot : PlayerAbilityBase
             _currentGunIndex = index;
             CreateGun(_currentGunIndex);
 
-            foreach (var ui in uIGunUpdaters)
+            foreach (var ui in uIFillUpdaters)
             {
                 ui.UpdateIcon(availableGuns[index].gunIcon);
             }
