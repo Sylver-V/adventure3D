@@ -9,6 +9,8 @@ public class GunShootAngle : GunShootLimit
 
     public override void Shoot()
     {
+        ShakeCamera.Instance.Shake();
+
         int mult = 0;
 
         for (int i = 0; i < amountPerShoot; i++) 
