@@ -7,7 +7,7 @@ using Ebac.Core.Singleton;
 
 
 
-namespace Itens
+namespace Items
 {
 
 
@@ -22,7 +22,6 @@ namespace Itens
 
         public List<ItemSetup> itemSetups;
 
-
         private void Start()
         {
             Reset();
@@ -36,6 +35,11 @@ namespace Itens
             }
         }
 
+        public ItemSetup GetItemByType(ItemType itemType)
+        {
+            return itemSetups.Find(i => i.itemType == itemType);
+        }
+
         public void AddByType(ItemType itemType, int amount = 1)
         {
             if (amount < 0) return;
@@ -43,10 +47,8 @@ namespace Itens
 
         }
 
-        public void RemoveByType(ItemType itemType, int amount = -1)
+        public void RemoveByType(ItemType itemType, int amount = 1)
         {
-            if (amount > 0) return;
-
             var item = itemSetups.Find(i => i.itemType == itemType);
             item.soInt.value -= amount;
 
@@ -72,5 +74,7 @@ namespace Itens
     {
         public ItemType itemType;
         public SOInt soInt;
+        public Sprite icon;
+        public bool isUsable = true;
     }
 }

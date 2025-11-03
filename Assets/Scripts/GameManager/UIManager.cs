@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -7,6 +8,8 @@ public class UIManager : MonoBehaviour
     [Header("Life")]
     public UIFillUpdater healthBar;
     public TMPro.TextMeshProUGUI lifeText;
+    public TextMeshProUGUI lifePackKeyText;
+
 
     [Header("Gun")]
     public UIFillUpdater ammoBar;

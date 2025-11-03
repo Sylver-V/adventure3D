@@ -1,4 +1,5 @@
 using Animation;
+using Items;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ public class HealthBase : MonoBehaviour, IDamageble
     public void ResetLife()
     {
         _currentLife = startLife;
+        UpdateUI();
     }
 
 
@@ -77,7 +79,25 @@ public class HealthBase : MonoBehaviour, IDamageble
         {
             UIManager.Instance.lifeText.text = $"{Mathf.CeilToInt(_currentLife)} / {Mathf.CeilToInt(startLife)}";
         }
+
+        if (UIManager.Instance != null && UIManager.Instance.lifePackKeyText != null)
+        {
+            bool showKey = _currentLife < startLife * 0.5f;
+            UIManager.Instance.lifePackKeyText.gameObject.SetActive(showKey);
+
+            if (showKey)
+            {
+                var action = FindObjectOfType<ActionLifePack>();
+                if (action != null)
+                {
+                    var key = action.keyCode;
+                    UIManager.Instance.lifePackKeyText.text = $"Pressione [{key}] para curar";
+                }
+
+            }
+        }
     }
+
 
 
 }
