@@ -17,6 +17,7 @@ namespace Enemy
 
         public float startLife = 10f;
         public bool lookAtPlayer = false;
+        public float destroyDelay = 3f;
 
         [Header("Animation")]
         [SerializeField] private AnimationBase _animationBase;
@@ -60,7 +61,7 @@ namespace Enemy
         protected virtual void OnKIll()
         {
             if(colliderEnemy != null) colliderEnemy.enabled = false;
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, destroyDelay);
             PlayAnimationByTrigger(AnimationType.DEATH);
 
             var patrol = GetComponent<EnemyPatrol>();
