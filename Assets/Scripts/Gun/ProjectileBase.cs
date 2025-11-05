@@ -18,6 +18,7 @@ public class ProjectileBase : MonoBehaviour
 
     private void Awake()
     {
+        damageAmount = Mathf.RoundToInt(damageAmount * Player.Instance.attackMultiplier);
         Destroy(gameObject, timeToDestroy);
     }
 

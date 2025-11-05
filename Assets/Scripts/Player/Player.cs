@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Ebac.Core.Singleton;
+using Cloth;
 
 public class Player : Singleton<Player>//, IDamageble
 {
@@ -13,6 +14,11 @@ public class Player : Singleton<Player>//, IDamageble
     public float turnSpeed = 1f;
     public float gravity = -9.8f;
 
+    public ProjectileBaseHandler projectileBaseHandler;
+    public float attackMultiplier = 1f;
+
+
+    private Coroutine _resetAttackRoutine;
 
     private float vSpeed = 0f;
 
@@ -30,6 +36,13 @@ public class Player : Singleton<Player>//, IDamageble
     [Header("Life")]
     public HealthBase healthBase;
     public UIFillUpdater uIFillUpdater;
+
+    [Space]
+    [SerializeField] private ClothChanger _clothChanger;
+
+
+
+
 
     private bool _alive = true;
 
@@ -140,5 +153,48 @@ public class Player : Singleton<Player>//, IDamageble
             transform.position = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
         }
     }
+
+    public void ChangeSpeed(float speed, float duration)
+    {
+        StartCoroutine(ChangeSpeedCoroutine(speed, duration));
+    }
+
+    IEnumerator ChangeSpeedCoroutine(float localSpeed, float duration)
+    {
+        var defaultSpeed = speed;
+        speed = localSpeed;
+        yield return new WaitForSeconds(duration);
+        speed = defaultSpeed;
+    }
+
+    public void ChangeTexture(ClothSetup setup, float duration)
+    {
+        StartCoroutine(ChangeTextureCoroutine(setup, duration));
+    }
+
+    IEnumerator ChangeTextureCoroutine(ClothSetup setup, float duration)
+    {
+        _clothChanger.ChangeTexture(setup, duration);
+        yield return new WaitForSeconds(duration);
+        _clothChanger.ResetTexture();
+    }
+
+
+    public void ChangeAttackMultiplier(float multiplier, float duration)
+    {
+        attackMultiplier = multiplier;
+
+        if (_resetAttackRoutine != null)
+            StopCoroutine(_resetAttackRoutine);
+
+        _resetAttackRoutine = StartCoroutine(ResetAttackMultiplier(duration));
+    }
+
+    private IEnumerator ResetAttackMultiplier(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        attackMultiplier = 1f;
+    }
+
 
 }

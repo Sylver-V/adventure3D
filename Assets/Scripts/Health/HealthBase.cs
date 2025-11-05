@@ -1,4 +1,5 @@
 using Animation;
+using Cloth;
 using Items;
 using System;
 using System.Collections;
@@ -19,6 +20,8 @@ public class HealthBase : MonoBehaviour, IDamageble
     public Action<HealthBase> OnKill;
 
     public List<UIFillUpdater> uIFillUpdater;
+
+    public float damageMultiply = 1;
 
     private void Awake()
     {
@@ -54,7 +57,7 @@ public class HealthBase : MonoBehaviour, IDamageble
 
     public void Damage(float f)
     {
-        _currentLife -= f;
+        _currentLife -= f * damageMultiply;
 
         if (_currentLife <= 0)
         {
@@ -103,7 +106,17 @@ public class HealthBase : MonoBehaviour, IDamageble
         }
 
     }
+    public void ChangeDamageMultiply(float newMultiply, float duration)
+    {
+        StartCoroutine(ChangeDamageMultiplyCoroutine(newMultiply, duration));
+    }
 
+    IEnumerator ChangeDamageMultiplyCoroutine(float newMultiply, float duration)
+    {
+        damageMultiply = newMultiply;
+        yield return new WaitForSeconds(duration);
+        damageMultiply = 1f;
+    }
 
 
 }
