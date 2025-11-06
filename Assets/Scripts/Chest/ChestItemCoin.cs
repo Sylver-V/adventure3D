@@ -17,6 +17,7 @@ public class ChestItemCoin : ChestItemBase
 
     public float tweenEndTime = .5f;
 
+
     public override void ShowItem()
     {
         base.ShowItem();

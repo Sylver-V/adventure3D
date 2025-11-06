@@ -16,9 +16,13 @@ public class PlayerAbilityShot : PlayerAbilityBase
 
     public UIWeaponDisplay uiWeaponDisplay;
 
+    public FlashColor _flashColor;
 
     private int _currentGunIndex = 0;
     private GunBase _currentGun;
+
+    [Header("VFX")]
+    public ParticleSystem gunSmoke;
 
 
     protected override void Init()
@@ -50,8 +54,16 @@ public class PlayerAbilityShot : PlayerAbilityBase
     private void StartShoot()
     {
         _currentGun.StartShot();
+        _flashColor.Flash();
         Debug.Log("Start Shoot");
+
+        if (gunSmoke != null)
+        {
+            gunSmoke.Play();
+        }
     }
+
+
 
     private void CancelShoot()
     {

@@ -23,6 +23,9 @@ public class ChestBase : MonoBehaviour
 
     private bool _chestOpened = false;
 
+    [Header("VFX")]
+    public ParticleSystem chestParticles;
+
 
     private void Start()
     {
@@ -42,6 +45,12 @@ public class ChestBase : MonoBehaviour
         animator.SetTrigger(triggerOpen);
         _chestOpened = true;
         HideNotification();
+
+        if (chestParticles != null)
+        {
+            chestParticles.Stop();
+            chestParticles.Clear();
+        }
 
         Invoke(nameof(ShowItem), 1f);
     }
