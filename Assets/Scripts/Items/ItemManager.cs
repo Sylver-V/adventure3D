@@ -1,16 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using TMPro;
 using Ebac.Core.Singleton;
-
-
 
 namespace Items
 {
-
-
     public enum ItemType
     {
         COIN,
@@ -19,17 +12,29 @@ namespace Items
 
     public class ItemManager : Singleton<ItemManager>
     {
-
         public List<ItemSetup> itemSetups;
+        private bool isLoading = false;
 
         private void Start()
         {
             Reset();
+            LoadItemsFromSave();
+        }
+
+        public void LoadItemsFromSave()
+        {
+            isLoading = true;
+
+            // aplica diretamente os valores salvos
+            GetItemByType(ItemType.COIN).soInt.value = (int)SaveManager.Instance.Setup.coins;
+            GetItemByType(ItemType.LIFE_PACK).soInt.value = (int)SaveManager.Instance.Setup.healthPacks;
+
+            isLoading = false;
         }
 
         private void Reset()
         {
-            foreach(var i in itemSetups)
+            foreach (var i in itemSetups)
             {
                 i.soInt.value = 0;
             }
@@ -45,6 +50,11 @@ namespace Items
             if (amount < 0) return;
             itemSetups.Find(i => i.itemType == itemType).soInt.value += amount;
 
+            // só salva se não estiver carregando
+            if (!isLoading)
+            {
+                SaveManager.Instance.SaveItems();
+            }
         }
 
         public void RemoveByType(ItemType itemType, int amount = 1)
@@ -52,21 +62,8 @@ namespace Items
             var item = itemSetups.Find(i => i.itemType == itemType);
             item.soInt.value -= amount;
 
-            if(item.soInt.value < 0 ) item.soInt.value = 0;
+            if (item.soInt.value < 0) item.soInt.value = 0;
         }
-
-        [NaughtyAttributes.Button]
-        private void AddCoin()
-        {
-            AddByType(ItemType.COIN);
-        }
-
-        [NaughtyAttributes.Button]
-        private void AddLifePack()
-        {
-            AddByType(ItemType.LIFE_PACK);
-        }
-
     }
 
     [System.Serializable]

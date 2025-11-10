@@ -42,6 +42,9 @@ public class CheckpointBase : MonoBehaviour
 
         CheckpointManager.Instance.SaveCheckpoint(key);
 
+        SaveManager.Instance.SaveLastLevel(SaveManager.Instance.lastLevel, key);
+
         checkpointActived = true;
+
     }
 }

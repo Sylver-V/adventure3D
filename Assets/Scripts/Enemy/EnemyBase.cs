@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 using DG.Tweening;
 using Animation;
@@ -26,6 +27,10 @@ namespace Enemy
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
+
+        [Header("Events")]
+        public UnityEvent OnKillEvents;
+
 
         private Player _player;
 
@@ -60,9 +65,10 @@ namespace Enemy
 
         protected virtual void OnKIll()
         {
-            if(colliderEnemy != null) colliderEnemy.enabled = false;
+            if (colliderEnemy != null) colliderEnemy.enabled = false;
             Destroy(gameObject, destroyDelay);
             PlayAnimationByTrigger(AnimationType.DEATH);
+            OnKillEvents?.Invoke();
 
             var patrol = GetComponent<EnemyPatrol>();
             if (patrol != null)

@@ -21,7 +21,23 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         Init();
+
+        if (CheckpointManager.Instance.HasCheckpoint())
+        {
+            Vector3 pos = CheckpointManager.Instance.GetPositionFromLastCheckpoint();
+
+            // Certifique-se de que o jogador já foi instanciado
+            if (Player.Instance != null)
+            {
+                Player.Instance.transform.position = pos;
+            }
+            else
+            {
+                Debug.LogWarning("Player.Instance não está disponível no momento do checkpoint.");
+            }
+        }
     }
+
 
     public void Init()
     {

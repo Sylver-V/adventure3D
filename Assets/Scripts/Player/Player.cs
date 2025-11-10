@@ -188,9 +188,18 @@ public class Player : Singleton<Player>//, IDamageble
     IEnumerator ChangeTextureCoroutine(ClothSetup setup, float duration)
     {
         _clothChanger.ChangeTexture(setup, duration);
-        yield return new WaitForSeconds(duration);
-        _clothChanger.ResetTexture();
+
+        if (duration > 0f)
+        {
+            yield return new WaitForSeconds(duration);
+            _clothChanger.ResetTexture();
+        }
+        else
+        {
+            Debug.Log("Player: roupa permanente, não será resetada.");
+        }
     }
+
 
 
     public void ChangeAttackMultiplier(float multiplier, float duration)

@@ -15,6 +15,8 @@ public class HealthBase : MonoBehaviour, IDamageble
 
 
     [SerializeField] private float _currentLife;
+    public float CurrentLife => _currentLife;
+
 
     public Action<HealthBase> OnDamage;
     public Action<HealthBase> OnKill;
@@ -40,6 +42,11 @@ public class HealthBase : MonoBehaviour, IDamageble
         UpdateUI();
     }
 
+    public void SetLife(float value)
+    {
+        _currentLife = Mathf.Clamp(value, 0, startLife);
+        UpdateUI();
+    }
 
     protected virtual void Kill()
     {
