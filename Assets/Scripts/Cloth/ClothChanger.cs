@@ -29,8 +29,16 @@ namespace Cloth
         public void ChangeTexture(ClothSetup setup, float duration)
         {
             mesh.sharedMaterials[0].SetTexture(shaderIdName, setup.text);
-            StartCoroutine(ResetAfterDuration(duration));
+            if (duration > 0f)
+            {
+                StartCoroutine(ResetAfterDuration(duration));
+            }
+            else
+            {
+                Debug.Log("Roupa aplicada permanentemente (sem duração).");
+            }
         }
+
 
         public void ResetTexture()
         {
@@ -39,9 +47,14 @@ namespace Cloth
 
         private IEnumerator ResetAfterDuration(float duration)
         {
+            Debug.Log("ResetAfterDuration chamado com duração: " + duration);
+
+            if (duration <= 0f) yield break;
+
             yield return new WaitForSeconds(duration);
             ResetTexture();
         }
+
 
     }
 }

@@ -31,6 +31,8 @@ namespace Cloth
             var setup = ClothManager.Instance.GetSetupByType(clothType);
             Player.Instance.ChangeTexture(setup, duration);
 
+            SaveManager.Instance.SaveCloth(clothType);
+
             HideObject();
 
         }

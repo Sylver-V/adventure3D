@@ -7,6 +7,8 @@ namespace Cloth
 {
     public enum ClothType
     {
+        SKIN01,
+        SKIN02,
         SPEED,
         STRONG,
         POWER,
