@@ -29,12 +29,11 @@ public class GunShootLimit : GunBase
 
     protected override IEnumerator ShootCoroutine()
     {
-
         if (_recharging) yield break;
 
-        while(true)
+        while (true)
         {
-            if(_currentShoots < maxShoot)
+            if (_currentShoots < maxShoot)
             {
                 Shoot();
                 _currentShoots++;
@@ -42,10 +41,14 @@ public class GunShootLimit : GunBase
                 UpdateUI();
                 yield return new WaitForSeconds(timeBetweenShoot);
             }
-
-
+            else
+            {
+                // Evita loop infinito sem yield
+                yield return null;
+            }
         }
     }
+
 
     private void CheckRecharge()
     {
@@ -67,7 +70,8 @@ public class GunShootLimit : GunBase
             ammoBar.UpdateValue(maxShoot, _currentShoots);
     }
 
-    IEnumerator RechargeCoroutine()
+
+    private IEnumerator RechargeCoroutine()
     {
         float time = 0;
         while (time < timeToRecharge)
@@ -75,11 +79,16 @@ public class GunShootLimit : GunBase
             time += Time.deltaTime;
             if (ammoBar != null)
                 ammoBar.UpdateValue(time / timeToRecharge);
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
+
         _currentShoots = 0;
         _recharging = false;
+
+        if (ammoBar != null)
+            ammoBar.UpdateValue(maxShoot, _currentShoots);
     }
+
 
 
     //private void GetAllUIs()

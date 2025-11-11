@@ -5053,6 +5053,7 @@ MonoBehaviour:
   tweenEase: 27
   chestItem: {fileID: 7936913320863456008}
   chestParticles: {fileID: 5967909424451126141}
+  sfxType: 2
 --- !u!135 &7936913320944917178
 SphereCollider:
   m_ObjectHideFlags: 0

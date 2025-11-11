@@ -4880,6 +4880,10 @@ MonoBehaviour:
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  OnKillEvents:
+    m_PersistentCalls:
+      m_Calls: []
+  sfxHitType: 6
 --- !u!65 &5587810862090564372
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9835,7 +9839,7 @@ PrefabInstance:
     - target: {fileID: 6983442274928476050, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2100000, guid: 0a5e050cb4f28334f82f0b265c8c1c20, type: 2}
     - target: {fileID: 8115776127002297597, guid: 86dc2d7519f0fa047a4a9adbc81a8da7, type: 3}
       propertyPath: m_RootOrder
       value: 0

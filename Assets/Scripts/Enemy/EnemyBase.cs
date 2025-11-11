@@ -31,6 +31,9 @@ namespace Enemy
         [Header("Events")]
         public UnityEvent OnKillEvents;
 
+        [Header("Sounds")]
+        public SFXType sfxHitType = SFXType.SlimeHit;
+
 
         private Player _player;
 
@@ -76,7 +79,7 @@ namespace Enemy
 
         }
 
-        public void OnDamage(float f)
+        public virtual void OnDamage(float f)
         {
             if (flashColor != null) flashColor.Flash();
             if (particleSystemEnemy != null) particleSystemEnemy.Emit(15);
@@ -85,7 +88,12 @@ namespace Enemy
 
             _currentLife -= f;
 
-            if(_currentLife <= 0) 
+            if (sfxHitType != SFXType.NONE)
+            {
+                SFXPool.Instance.Play(sfxHitType);
+            }
+
+            if (_currentLife <= 0) 
             {
                 Kill();
             }

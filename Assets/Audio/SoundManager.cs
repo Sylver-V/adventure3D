@@ -10,6 +10,13 @@ public class SoundManager : Singleton<SoundManager>
 
     public AudioSource musicSource;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+
+    }
+
     public void PlayMusicByType(MusicType musicType)
     {
         var music = GetMusicByType(musicType);
@@ -33,7 +40,8 @@ public enum MusicType
 {
     Type_01,
     Type_02,
-    Type_03
+    Type_03,
+    COMPLETE
 }
 
 [System.Serializable]
@@ -45,9 +53,13 @@ public class MusicSetup
 
 public enum SFXType
 {
-    Type_01,
-    Type_02,
-    Type_03
+    NONE,
+    Coin,
+    Chest,
+    Type_03,
+    Shoot,
+    Shoot2,
+    SlimeHit
 }
 
 [System.Serializable]

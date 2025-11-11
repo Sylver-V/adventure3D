@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
+  sfxType: 1
   comparteTag: Player
   itemParticleSystem: {fileID: 0}
   graphicItem: {fileID: 2397490046043079850}

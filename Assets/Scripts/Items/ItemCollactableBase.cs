@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Items
 {
 
     public class ItemCollactableBase : MonoBehaviour
     {
         public ItemType itemType;
+
+        public SFXType sfxType;
 
 
         public string comparteTag = "Player";
@@ -34,10 +37,16 @@ namespace Items
             }
         }
 
+        private void PlaySFX()
+        {
+            SFXPool.Instance.Play(sfxType);
+        }
+
 
 
         protected virtual void Collect()
         {
+            PlaySFX();
             if(collider != null) collider.enabled = false;
             //Debug.Log("Collect");
             if(graphicItem != null) graphicItem.SetActive(false);

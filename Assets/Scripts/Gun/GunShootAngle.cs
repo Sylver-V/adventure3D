@@ -7,22 +7,23 @@ public class GunShootAngle : GunShootLimit
     public int amountPerShoot = 4;
     public float angle = 15f;
 
+    public SFXType shootSFX; 
+
     public override void Shoot()
     {
         ShakeCamera.Instance.Shake();
 
         int mult = 0;
 
-        for (int i = 0; i < amountPerShoot; i++) 
+        for (int i = 0; i < amountPerShoot; i++)
         {
             var projectile = Instantiate(prefabProjectile, positionToShoot);
 
             projectile.transform.localPosition = Vector3.zero;
-            projectile.transform.localEulerAngles = Vector3.zero + Vector3.up * (i%2 == 0 ? angle : -angle) * mult;
+            projectile.transform.localEulerAngles = Vector3.zero + Vector3.up * (i % 2 == 0 ? angle : -angle) * mult;
 
             projectile.speed = speed;
             projectile.transform.parent = null;
-
 
             foreach (var other in GameObject.FindObjectsOfType<ProjectileBase>())
             {
@@ -32,12 +33,10 @@ public class GunShootAngle : GunShootLimit
                 }
             }
 
-            if (i%2 == 0)
-            {
-                mult++;
-            }
-
+            if (i % 2 == 0) mult++;
         }
-    }
 
+        if (SFXPool.Instance != null)
+            SFXPool.Instance.Play(shootSFX);
+    }
 }

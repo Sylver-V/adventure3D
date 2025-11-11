@@ -1,14 +1,14 @@
 {
     "lastLevel": 0,
     "checkpointKey": 0,
-    "coins": 6.0,
-    "healthPacks": 2.0,
+    "coins": 0.0,
+    "healthPacks": 0.0,
     "currentLife": 10.0,
-    "clothType": 1,
+    "clothType": 2,
     "playerPosition": {
-        "x": 387.47906494140627,
-        "y": -9.485885620117188,
-        "z": 80.7145004272461
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
     },
     "sceneName": "SCN_Art_3D_Level01",
     "playerName": "Victor"

@@ -26,6 +26,9 @@ public class ChestBase : MonoBehaviour
     [Header("VFX")]
     public ParticleSystem chestParticles;
 
+    [Header("Audio")]
+    public SFXType sfxType;
+
 
     private void Start()
     {
@@ -52,7 +55,12 @@ public class ChestBase : MonoBehaviour
             chestParticles.Clear();
         }
 
-        Invoke(nameof(ShowItem), 1f);
+        if (sfxType != SFXType.NONE)
+        {
+            SFXPool.Instance.Play(sfxType);
+        }
+
+            Invoke(nameof(ShowItem), 1f);
     }
 
     private void ShowItem()

@@ -143,5 +143,6 @@ MonoBehaviour:
   positionToShoot: {fileID: 8015748721583651789}
   timeBetweenShoot: 0.2
   speed: 50
+  shootSFX: 0
   gunIcon: {fileID: 0}
   keyCode: 122
